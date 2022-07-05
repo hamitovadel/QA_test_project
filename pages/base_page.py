@@ -8,13 +8,13 @@ from selenium.webdriver.support import expected_conditions as EC
 from .locators import BasePageLocators
 
 
+# random password generator
 def generate_temp_password(length):
     if not isinstance(length, int) or length < 8:
         raise ValueError("temp password must have positive length")
 
     chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjklmnpqrstuvwxyz0123456789!@#$%&*()"
 
-    # Python 3 (urandom returns bytes)
     return "".join(chars[c % len(chars)] for c in urandom(length))
 
 
