@@ -1,3 +1,5 @@
+from selenium.common.exceptions import NoAlertPresentException
+
 from pages.base_page import generate_temp_password
 from pages.basket_page import BasketPage
 from pages.product_page import ProductPage
@@ -7,13 +9,19 @@ import time
 
 link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
 
+# If you need to test product with promo offers use this link
+# link = " http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer0"
+
 
 @pytest.mark.need_review
-def test_guest_can_add_product_to_basket(self, browser):
+def test_guest_can_add_product_to_basket(browser):
     page = ProductPage(browser, link)
     page.open()
     page.add_product_to_basket()
-    # page.solve_quiz_and_get_code()
+    try:
+        page.solve_quiz_and_get_code()  # some products pages require this method
+    except NoAlertPresentException:
+        pass
     page.checking_added_to_basket_product_name(page.return_product_name())
     page.checking_added_to_basket_product_price(page.return_product_price())
 
@@ -23,6 +31,10 @@ def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
     page = ProductPage(browser, link)
     page.open()
     page.add_product_to_basket()
+    try:
+        page.solve_quiz_and_get_code()  # some products pages require this method
+    except NoAlertPresentException:
+        pass
     page.should_not_be_success_message()
 
 
@@ -78,6 +90,9 @@ class TestUserAddToBasketFromProductPage:
         page = ProductPage(browser, link)
         page.open()
         page.add_product_to_basket()
-        # page.solve_quiz_and_get_code()
+        try:
+            page.solve_quiz_and_get_code()  # some products pages require this method
+        except NoAlertPresentException:
+            pass
         page.checking_added_to_basket_product_name(page.return_product_name())
         page.checking_added_to_basket_product_price(page.return_product_price())
