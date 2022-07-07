@@ -18,6 +18,7 @@ class RegisterPageLocators:
     PASSWORD_FIELD = (By.ID, "id_registration-password1")
     CONFIRM_PASSWORD_FIELD = (By.ID, "id_registration-password2")
     REGISTER_BUTTON = (By.CSS_SELECTOR, ".register_form .btn-primary")
+    SUCCESS_REG_MESSAGE = (By.CSS_SELECTOR, '.alert-success.fade.in')
 
 
 class ProductPageLocators:

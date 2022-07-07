@@ -24,6 +24,14 @@ class BasePage:
         self.url = url
         self.browser.implicitly_wait(timeout)
 
+    def enter_to_form(self, how, what, data):
+        form = self.browser.find_element(how, what)
+        form.send_keys(data)
+
+    def press_button(self, how, what):
+        button = self.browser.find_element(how, what)
+        button.click()
+
     def open(self):
         self.browser.get(self.url)
 
